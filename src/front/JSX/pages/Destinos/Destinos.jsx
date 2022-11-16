@@ -6,33 +6,27 @@ const Destinos = () => {
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
-    getDestinations();
-  }, []);
-
-  const getDestinations = async () => {
-    const url = "https://741b-90-161-195-130.eu.ngrok.io/api/v1/destinations";
-    const options = {
+    fetch("https://741b-90-161-195-130.eu.ngrok.io/api/v1/destinations", {
       method: "GET",
-      headers: new Headers({ "Content-type": "application/json" }),
+      headers: { "Content-type": "application/json" },
       mode: "no-cors",
-    };
-    const resp = await fetch(url, options);
-    const data = await resp.json();
-    setDestinations(data);
-    console.log(data);
-  };
-  
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setDestinations(data);
+        console.log(data);
+      });
+  }, []);
 
   return (
     <div>
       <Navbar />
       <div className="body align-items-center text-center justify-content-center">
         <div className="card card-container m-5 ">
-          {destinations.map(
-            dest => {
-              return<h1>{dest}</h1>
-            }
-          )}
+        <h1 className="text-center m-0">BIENVENIDO A NUESTRA VENTANA DE DESTINOS </h1>
+          {destinations.map((dest) => {
+            return <h1>{dest}</h1>;
+          })}
         </div>
       </div>
     </div>
